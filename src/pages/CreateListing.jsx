@@ -128,7 +128,7 @@ const CreateListing = () => {
       });
 
       /* Send a POST request to server */
-      const response = await fetch("https://home-back.onrender.com/properties/create", {
+      const response = await fetch("http://0.0.0.0:3001/properties/create", {
         method: "POST",
         body: listingForm,
       });
