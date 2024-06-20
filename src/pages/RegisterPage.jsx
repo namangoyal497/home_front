@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import "../styles/Register.scss";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for email validation
+
+
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -12,6 +15,8 @@ const RegisterPage = () => {
     profileImage: null,
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(true); // State for email validation
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData({
@@ -19,6 +24,7 @@ const RegisterPage = () => {
       [name]: value,
       [name]: name === "profileImage" ? files[0] : value,
     });
+    setIsEmailValid(EMAIL_REGEX.test(value)); 
   };
 
   const [passwordMatch, setPasswordMatch] = useState(true)
@@ -82,6 +88,8 @@ const RegisterPage = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            style={{ border: isEmailValid ? '' : '1px solid red' }} // Add visual feedback
+         
           />
           <input
             placeholder="Password"
